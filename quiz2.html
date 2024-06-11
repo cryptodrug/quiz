@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Vocabulary Quiz for Grade 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+        .quiz-container {
+            margin: auto;
+            width: 50%;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 12px #aaa;
+            border-radius: 10px;
+        }
+        .question {
+            font-size: 1.2em;
+        }
+        .choices {
+            list-style-type: none;
+            padding: 0;
+        }
+        .choices li {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>English Vocabulary Quiz for Grade 1</h1>
+        <div id="quiz">
+            <div class="question"></div>
+            <ul class="choices"></ul>
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script>
+        const quizData = [
+            { question: "What does 'like' mean?", choices: ["嫌い", "好き", "遊ぶ", "食べる"], correct: 1 },
+            { question: "What does 'play' mean?", choices: ["勉強する", "遊ぶ", "走る", "歌う"], correct: 1 },
+            { question: "What does 'study' mean?", choices: ["遊ぶ", "勉強する", "休む", "歌う"], correct: 1 },
+            { question: "What does 'do' mean?", choices: ["食べる", "する", "見る", "買う"], correct: 1 },
+            { question: "What does 'have' mean?", choices: ["持つ", "走る", "読む", "書く"], correct: 0 },
+            { question: "What does 'see' mean?", choices: ["見る", "聞く", "話す", "食べる"], correct: 0 },
+            { question: "What does 'make' mean?", choices: ["作る", "話す", "書く", "読む"], correct: 0 },
+            { question: "What does 'read' mean?", choices: ["書く", "読む", "話す", "聞く"], correct: 1 },
+            { question: "What does 'write' mean?", choices: ["読む", "書く", "作る", "見る"], correct: 1 },
+            { question: "What does 'eat' mean?", choices: ["飲む", "食べる", "見る", "読む"], correct: 1 },
+            { question: "What does 'drink' mean?", choices: ["食べる", "飲む", "聞く", "読む"], correct: 1 },
+            { question: "What does 'come' mean?", choices: ["来る", "行く", "帰る", "遊ぶ"], correct: 0 },
+            { question: "What does 'go' mean?", choices: ["来る", "行く", "話す", "持つ"], correct: 1 },
+            { question: "What does 'take' mean?", choices: ["取る", "持つ", "読む", "書く"], correct: 0 },
+            { question: "What does 'get' mean?", choices: ["取る", "持つ", "得る", "読む"], correct: 2 },
+            { question: "What does 'know' mean?", choices: ["知る", "持つ", "読む", "書く"], correct: 0 },
+            { question: "What does 'think' mean?", choices: ["考える", "話す", "聞く", "見る"], correct: 0 },
+            { question: "What does 'help' mean?", choices: ["持つ", "助ける", "聞く", "話す"], correct: 1 },
+            { question: "What does 'love' mean?", choices: ["嫌い", "好き", "愛する", "見る"], correct: 2 },
+            { question: "What does 'favorite' mean?", choices: ["嫌いな", "楽しい", "好きな", "忙しい"], correct: 2 }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quiz = document.getElementById('quiz');
+            const question = quizData[currentQuestion];
+            quiz.querySelector('.question').innerHTML = question.question;
+            const choicesList = quiz.querySelector('.choices');
+            choicesList.innerHTML = '';
+            question.choices.forEach((choice, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<input type="radio" name="choice" value="${index}"> ${choice}`;
+                choicesList.appendChild(li);
+            });
+        }
+
+        function nextQuestion() {
+            const selected = document.querySelector('input[name="choice"]:checked');
+            if (selected) {
+                if (parseInt(selected.value) === quizData[currentQuestion].correct) {
+                    score++;
+                }
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    document.getElementById('quiz').style.display = 'none';
+                    document.getElementById('result').innerHTML = `You scored ${score} out of ${quizData.length}!`;
+                }
+            } else {
+                alert('Please select an answer!');
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
